@@ -4,15 +4,18 @@ export default function Form(props) {
   const { values, submit, change, disabled, errors } = props;
 
   const onSubmit = (evt) => {
-
+    evt.preventDefault();
+    submit();
   };
 
   const onChange = (evt) => {
-
+    const { name, value, type, checked } = evt.target;
+    const valueToUse = type === 'checkbox' ? checked : value;
+    change(name, valueToUse);
   };
 
   return (
-    <div className='form container'>
+    <form className='form container' onSubmit={onSubmit}>
       <h3>How would you like your tasty pizza?</h3>
       <h4>Order Details:</h4>
 
@@ -29,7 +32,7 @@ export default function Form(props) {
         </label>
 
         <label>
-          <br/>Pizza Size:&nbsp;
+          <br/><br/>Pizza Size:&nbsp;
           <select onChange={onChange} value={values.size} name='size'>
             <option value="">----- Select a Size -----</option>
             <option value="small">Small</option>
@@ -86,7 +89,7 @@ export default function Form(props) {
       <div className='form-group special'>
 
         <label>
-            Special Instructions:&nbsp;
+            <br/>Special Instructions:&nbsp;
             <input
               value={values.instruction}
               onChange={onChange}
@@ -96,12 +99,16 @@ export default function Form(props) {
           </label>
       </div>
 
-      <button id='submitButton' disabled={disabled}>Submit Order</button>
+      <div className='form-group submit'>
+        <br/>
+        <button id='submitButton' disabled={disabled}>Submit Order</button>
 
-      <div className='errors'>
-        <div id="nameErrors">{errors.name}</div>
-        <div id="sizeErrors">{errors.size}</div>
+        <div className='errors'>
+          <br/>
+          <div id="nameErrors" style={{ color: 'red'}}>{errors.name}</div>
+          <div id="sizeErrors" style={{ color: 'red'}}>{errors.size}</div>
+        </div>
       </div>
-    </div>
+    </form>
   );
 };

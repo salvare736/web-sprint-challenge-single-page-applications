@@ -23,28 +23,73 @@ const initialFormErrors = {
   size: ''
 };
 
+const initialOrders = [];
+
 const initialDisabled = true;
 
 export default function App() {
-  const [orders, setOrders] = useState(null);
+  const [orders, setOrders] = useState(initialOrders);
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
 
-  const postNewOrder = (newOrder) => {
+  useEffect(() => {
+    console.log(orders);
+  }, [orders]);
 
+  const postNewOrder = (newOrder) => {
+    axios
+      .post("https://reqres.in/api/orders", newOrder)
+      .then((res) => {
+        console.log(res.data);
+        setOrders([res.data, ...orders]);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setFormValues(initialFormValues);
+      });
   };
 
-  const inputChange = (name, values) => {
-
+  const inputChange = (name, value) => {
+    yup
+      .reach(schema, name)
+      .validate(value)
+      .then(() => {
+        setFormErrors({
+          ...formErrors,
+          [name]: '',
+        });
+      })
+      .catch((err) => {
+        setFormErrors({
+          ...formErrors,
+          [name]: err.errors[0]
+        });
+      });
+    setFormValues({
+      ...formValues,
+      [name]: value
+    });
   };
 
   const formSubmit = () => {
-
+    const newOrder = {
+      name: formValues.name.trim(),
+      size: formValues.size,
+      toppings: ['sausage', 'jalapeno', 'mushroom', 'olive'].filter(
+        (topping) => formValues[topping]
+      ),
+      instruction: formValues.instruction.trim()
+    };
+    postNewOrder(newOrder);
   };
 
   useEffect(() => {
-
+    schema.isValid(formValues).then((valid) => {
+      setDisabled(!valid);
+    });
   }, [formValues]);
 
   return (
