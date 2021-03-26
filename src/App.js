@@ -33,10 +33,13 @@ export default function App() {
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
 
+  // this useEffect logs the 'orders' array state everytime it is updated
   useEffect(() => {
-    console.log(orders);
+    console.log(orders, "This array contains all active pizza orders; try adding an order!");
   }, [orders]);
 
+  // using the inputs provided by the user, this function posts a new pizza order object to the API specified in the README
+  // the new pizza order object is then added to the 'orders' array state, which keeps track of all active pizza orders
   const postNewOrder = (newOrder) => {
     axios
       .post("https://reqres.in/api/orders", newOrder)

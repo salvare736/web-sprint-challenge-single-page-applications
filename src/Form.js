@@ -101,7 +101,7 @@ export default function Form(props) {
 
       <div className='form-group submit'>
         <br/>
-        <button id='submitButton' disabled={disabled}>Submit Order</button>
+        <button id='submitButton' disabled={disabled}>Add to Order</button>
 
         <div className='errors'>
           <br/>
