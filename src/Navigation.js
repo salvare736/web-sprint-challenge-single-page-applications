@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 
-const App = () => {
+export default function Navigation(props) {
+
   return (
-    <>
-      <h1>Lambda Eats</h1>
-      <p>You can remove this code and create your own header</p>
-    </>
+    <div className='navigation container'>
+      <h1>LAMBDA EATS</h1>
+    </div>
   );
 };
-export default App;

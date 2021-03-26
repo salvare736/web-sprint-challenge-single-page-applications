@@ -1,11 +1,10 @@
-import React from "react";
+import React from 'react';
 
-const App = () => {
+export default function Form(props) {
+
   return (
-    <>
-      <h1>Lambda Eats</h1>
-      <p>You can remove this code and create your own header</p>
-    </>
+    <div className='form container'>
+      <h3>Order delicious pizza!</h3>
+    </div>
   );
 };
-export default App;

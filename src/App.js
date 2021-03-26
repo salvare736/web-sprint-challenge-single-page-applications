@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import Home from './Home';
+import Form from './Form';
+import './App.css';
+import axios from 'axios';
+import * as yup from 'yup';
+import schema from './formSchema';
+import { Route, Switch } from 'react-router-dom';
 
-const App = () => {
+export default function App() {
+
+
   return (
-    <>
-      <h1>Lambda Eats</h1>
-      <p>You can remove this code and create your own header</p>
-    </>
+    <div className='app container'>
+      
+    </div>
   );
 };
-export default App;
